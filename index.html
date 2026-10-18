@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>漫展抽奖 · 照片分享</title>
+  <link rel="stylesheet" href="css/style.css?v=fix4">
+</head>
+<body>
+  <div id="loading-bar">
+    <div class="loading-glow"></div>
+  </div>
+
+  <!-- =====================================================
+       B1【用户要求】：导航只保留三个！抽奖 · 返图 · 大家的返图
+       删除独立"💬反馈"Tab（建议还是放在原留言板块，不单独做）
+       ===================================================== -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-item active" data-page="lottery">抽奖</div>
+      <div class="nav-item" data-page="gallery">我的照片</div>
+      <div class="nav-item" data-page="publicwall">大家的照片</div>
+    </div>
+  </nav>
+
+  <main id="app">
+    <section class="page page-lottery active" id="page-lottery">
+      <div class="lottery-bg">
+        <div class="stars-layer" id="starsLayer"></div>
+        <div class="bg-overlay"></div>
+        <div class="particles" id="particles"></div>
+      </div>
+      <div class="lottery-container">
+        <h1 class="lottery-title">抽 奖</h1>
+        <div class="title-divider"></div>
+
+        <div class="rules-section rules-top">
+          <div class="rules-content expanded" id="rulesContent" style="max-height:180px;padding:8px 14px;">
+            <p>· 一等奖：20元现金红包（共1份，抽完即止）</p>
+            <p>· 二等奖：霞蝶手办（共10份，抽完即止）</p>
+            <p>· 凭中奖页面联系摄影师领取</p>
+          </div>
+        </div>
+
+        <div class="lottery-wheel-wrapper">
+          <div class="lottery-track" id="lotteryTrack">
+            <div class="track-glow"></div>
+            <div class="wheel-container" id="wheelContainer">
+            </div>
+            <div class="prize-baseline" id="prizeBaseline">
+              <div class="baseline-diamond top"></div>
+              <div class="baseline-diamond bottom"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prize-hint">
+          <span class="prize-tag first">一等奖 限1份</span>
+        </div>
+
+        <button class="lottery-btn" id="lotteryBtn">
+          <span class="btn-text">开始抽奖</span>
+          <span class="btn-shine"></span>
+        </button>
+
+        <!-- 抽奖按钮下方：人物高低错落彩蛋区（低调，无标题，点击才说话） -->
+        <div class="char-crowd" id="charCrowd"></div>
+      </div>
+    </section>
+
+    <section class="page page-gallery" id="page-gallery">
+      <div class="gallery-container">
+        <div class="gallery-header" data-stagger="1">
+          <h2 class="gallery-title">全 部</h2>
+          <p class="gallery-subtitle">上传你的照片，和大家一起分享交流</p>
+        </div>
+
+        <div class="photo-area" id="photoArea" data-stagger="2">
+          <!-- =====================================================
+               B1【用户要求】补回：稍等一下~ 提示 + 相机动画
+               用户之前的稍等和快门动画被误删了，现在恢复
+               · 相机 SVG（camera-svg）+ 镜头闪光（camera-flash）+ 上下浮动（cameraBob）
+               · 咔嚓闪白（waiting-shutter）+ 镜头震动（cameraShake）
+               · 三点弹跳动画（waiting-dots）
+               · 文案：📷 稍等一下~ 摄影师正在为你修图中...
+               ===================================================== -->
+          <div class="waiting-state" id="waitingState">
+            <div class="waiting-camera" aria-hidden="true">
+              <svg viewBox="0 0 120 120" class="camera-svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="camBody" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#E0F2FE"/>
+                    <stop offset="100%" stop-color="#7DD3FC"/>
+                  </linearGradient>
+                  <linearGradient id="camLens" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0891B2"/>
+                    <stop offset="100%" stop-color="#164E63"/>
+                  </linearGradient>
+                </defs>
+                <!-- 相机机身 -->
+                <rect x="14" y="34" width="92" height="62" rx="14" fill="url(#camBody)" stroke="#0284C7" stroke-width="2"/>
+                <!-- 取景器小窗 -->
+                <rect x="44" y="22" width="32" height="16" rx="4" fill="#BAE6FD" stroke="#0284C7" stroke-width="2"/>
+                <!-- 快门按钮 -->
+                <rect x="74" y="26" width="18" height="8" rx="3" fill="#0EA5E9"/>
+                <!-- 镜头外圈 -->
+                <circle cx="60" cy="66" r="28" fill="#0369A1" stroke="#0284C7" stroke-width="3"/>
+                <!-- 镜头内圈 -->
+                <circle cx="60" cy="66" r="20" fill="url(#camLens)" stroke="#67E8F9" stroke-width="1.5"/>
+                <!-- 镜头反光高光 -->
+                <circle cx="53" cy="60" r="6" fill="#A5F3FC" opacity="0.65"/>
+                <circle cx="51" cy="58" r="2.5" fill="#ECFEFF"/>
+              </svg>
+              <div class="camera-flash" aria-hidden="true"></div>
+            </div>
+            <div class="waiting-text">
+              <p class="waiting-main">稍等一下~</p>
+              <p class="waiting-sub">摄影师正在为你修图中...</p>
+            </div>
+            <div class="waiting-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="waiting-shutter" aria-hidden="true"></div>
+          </div>
+
+          <div class="upload-simple-wrap" id="uploadSimpleWrap">
+            <p class="us-title">上传你的照片</p>
+            <p class="us-sub">点击白色框选择图片 → 确认上传即可（无需选位置，自动放到空位）</p>
+
+            <!-- 身份/抽奖未完成时的大提示（避免只靠小toast用户看不到） -->
+            <div class="us-blocker" id="usBlocker" style="display:none;">
+              <div class="usbk-ico">⚠️</div>
+              <div class="usbk-text">
+                <p id="usBlockerMain">请先完成抽奖和信息登记，才能上传你的照片哦~</p>
+                <button type="button" id="usBlockerBtn" class="usbk-btn">去抽奖 →</button>
+              </div>
+            </div>
+
+            <div class="us-box-row us-box-row-single">
+              <!-- 【唯一白框】：选择图片文件（用户要求：删除「选择位置1-9」九宫格功能） -->
+              <label class="us-white-box us-box-file us-box-file-single" id="usBoxFile" for="usPickFileInput">
+                <div class="usb-ico">🖼️</div>
+                <div class="usb-main">
+                  <div class="usb-title">选择图片</div>
+                  <div class="usb-sub">点白框 → 选要上传的图 (JPG/PNG/WebP)</div>
+                </div>
+                <div class="usb-value" id="usFileValue">未选</div>
+                <input type="file" id="usPickFileInput" accept="image/*"
+                       style="position:absolute;inset:0;opacity:0;cursor:pointer;z-index:3;">
+              </label>
+            </div>
+
+            <!-- 图片预览（选了图才显示） -->
+            <div class="us-preview" id="usPreview" style="display:none;">
+              <img id="usPreviewImg" alt="上传预览">
+              <button type="button" class="us-preview-remove" id="usPreviewRemove">× 移除这张</button>
+            </div>
+
+            <div class="us-foot">
+              <button type="button" class="us-btn-submit" id="usSubmitBtn" disabled>
+                ⬆ 确认上传
+              </button>
+              <span class="us-tip" id="usTip">请先点白色框选择要上传的图片</span>
+            </div>
+          </div>
+
+          <!-- ========== 块 1 结束：上传区 ========== -->
+
+          <!-- 温馨提示：关于修图的小小说明 -->
+          <div class="kind-tips-card" id="kindTipsCard" style="display:none;">
+            <div class="kt-head">
+              <span class="kt-ico">🌸</span>
+              <span class="kt-title">温馨小提示</span>
+            </div>
+            <ul class="kt-list">
+              <li>📸 这里是大家分享照片、交流心得的地方，欢迎上传你自己拍的或找别人拍的照片~</li>
+              <li>🌟 摄影师拍的原图会另外整理发布，这里主要是大家自己拍的或收藏的照片交流分享</li>
+              <li>💕 摄影师偶尔也会帮忙修图，但后期水平有限，请大家不要有太大期待~</li>
+              <li>⏱️ 如果有修图需求，可以在下方留言告诉摄影师，一般1-3天内会看看~</li>
+              <li>💬 留言时尽量具体描述想要的感觉（比如"日系""港风""磨白"），更容易被理解</li>
+              <li>✨ 上传的照片越清晰越好，大家看起来也更舒服~</li>
+              <li>🌈 同意公开后，照片会出现在「大家的照片」里，一起欣赏美好的瞬间吧！</li>
+              <li>🙏 感谢大家的理解与支持，祝拍照愉快！</li>
+            </ul>
+          </div>
+
+          <div class="section-gap-small"></div>
+          <!-- ========== 块 2：「📷 你的照片」九宫格 ========== -->
+          <div class="gallery-photos-wrap" id="photoWrapper" style="display:none;">
+            <div class="gallery-photos-header">
+              <h3 class="gallery-photos-title">📷 你的照片</h3>
+              <p class="gallery-photos-sub">
+                <span id="galleryPhotoCount">0</span> 张 ·
+                点击单张照片下方的按钮，同意公开即可出现在「大家的照片」
+              </p>
+            </div>
+            <div class="gallery-photo-grid" id="galleryPhotoGrid"></div>
+          </div>
+
+          <!-- ========== 块 2 结束 ========== -->
+          <div class="section-gap-small"></div>
+        </div>
+
+        <!-- 给摄影师留言板（不再等有返图才显示：填完身份进入「全部」页面就一直显示在这里） -->
+        <div class="photographer-message-section" id="photographerMsgSection" data-stagger="3">
+          <div class="section-divider">
+            <span class="divider-text">💬 COS给摄影师的反馈</span>
+          </div>
+          <div class="msg-intro-tip">
+            <span class="msg-tip-ico">🎨</span>
+            <p class="msg-tip-text">有修图需求可以告诉摄影师，<b>填完就能发</b>，不用等照片上传也能先留言哦～ 例如：<br/>
+              <span class="msg-tip-example">「日系胶片感，脸磨白一点，背景加樱花🌸」</span>、
+              <span class="msg-tip-example">「修成赛博朋克霓虹风」</span>
+            </p>
+          </div>
+          <div class="msg-kind-warning">
+            <span class="mkw-ico">💝</span>
+            <span class="mkw-text">
+              温馨提醒：摄影师修图水平有限，需求会尽力满足但不保证完美~
+              建议选择1-2个重点需求（如"磨白+背景加花"），效果会更到位哦
+            </span>
+          </div>
+          <div class="msg-send-row">
+            <textarea id="msgTextarea" class="msg-textarea" rows="3" maxlength="500" placeholder="例如：想修成日系胶片风～ 脸稍微磨皮白一点，背景加一点樱花花瓣，谢谢！"></textarea>
+            <div class="msg-send-footer">
+              <span class="msg-count"><span id="msgWordCount">0</span>/500</span>
+              <button type="button" class="msg-send-btn" id="msgSendBtn">💌 发送给摄影师</button>
+            </div>
+          </div>
+          <div class="msg-list" id="msgList"></div>
+        </div>
+      </div>
+
+      <div class="contact-section" data-stagger="3">
+          <div class="section-divider">
+            <span class="divider-text">扩列</span>
+          </div>
+
+          <div class="qr-cards-row" data-stagger="4">
+            <div class="qr-card-mini">
+              <div class="qr-img-wrap">
+                <div class="qr-frame-inner">
+                  <img id="qqQrImg" class="qr-img-real" alt="QQ二维码" style="display:none;">
+                  <div class="qr-placeholder" id="qqQrPlaceholder">
+                    <span class="qr-ph-ico">🔗</span>
+                    <span class="qr-ph-text">暂未配置QQ二维码</span>
+                  </div>
+                </div>
+              </div>
+              <div class="qr-channel-name qq-blue" id="qqChannelName">QQ</div>
+              <div class="qr-contact-num" id="qqNumber"></div>
+            </div>
+
+            <div class="qr-card-mini">
+              <div class="qr-img-wrap">
+                <div class="qr-frame-inner">
+                  <img id="wechatQrImg" class="qr-img-real" alt="微信二维码" style="display:none;">
+                  <div class="qr-placeholder" id="wechatQrPlaceholder">
+                    <span class="qr-ph-ico">💬</span>
+                    <span class="qr-ph-text">暂未配置微信二维码</span>
+                  </div>
+                </div>
+              </div>
+              <div class="qr-channel-name wechat-green" id="wechatChannelName">微信</div>
+              <div class="qr-contact-num" id="wechatContactNum"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page page-publicwall" id="page-publicwall">
+      <div class="publicwall-container">
+        <div class="publicwall-header" data-stagger="1">
+          <div class="publicwall-title-row">
+            <h2 class="publicwall-title">🎞️ 大家的照片</h2>
+            <div class="publicwall-live">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE · 现场实时更新</span>
+            </div>
+          </div>
+          <p class="publicwall-subtitle">
+            总照片 <span class="pw-count" id="pwTotalCount">0</span> 张
+            · 最新上传 <span class="pw-latest" id="pwLatestTime">—</span>
+          </p>
+          <div class="pw-filter-row" id="pwFilterRow">
+            <button class="pw-filter-btn active" data-filter="all">全部</button>
+            <button class="pw-filter-btn" data-filter="1">🥇一等奖</button>
+            <button class="pw-filter-btn" data-filter="2">🧧二等奖</button>
+          </div>
+        </div>
+
+        <div class="publicwall-body" data-stagger="2">
+          <div class="pw-empty" id="pwEmpty">
+            <div class="pw-empty-icon">📸</div>
+            <div class="pw-empty-title">还没人上传照片呢</div>
+            <div class="pw-empty-sub">抽个奖，你就是第一个！</div>
+          </div>
+          <div class="pw-waterfall" id="pwWaterfall"></div>
+          <div class="pw-loadmore" id="pwLoadMore" style="display:none;">
+            <button class="pw-btn-load" id="pwBtnLoadMore">加载更多 ↓</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 【防卡顿/防误判修复】底部工具条：用户可见的"重置身份"入口，
+       当用户被误判为「已抽过奖」（localStorage 残留脏 record 但后台已删）时，
+       点击可清掉全部 localStorage 身份键，重新开始抽奖。 -->
+  <footer class="page-footer">
+    <div class="pf-row">
+      <div class="pf-left">
+        <span class="pf-tip">提示：如果提示「已抽过奖」但实际没抽奖，或身份异常，请点右侧按钮重置</span>
+      </div>
+      <button type="button" class="pf-reset-btn" id="pfResetBtn">🔄 重置身份信息</button>
+    </div>
+    <div class="pf-hint">重置只会清除浏览器本地缓存的身份记录，不会影响服务器数据</div>
+  </footer>
+
+  <div class="modal-overlay" id="verifyModal">
+    <div class="verify-modal">
+      <div class="verify-header">
+        <div class="verify-icon">
+          <svg viewBox="0 0 48 48" class="verify-svg">
+            <circle cx="24" cy="24" r="22" fill="none" stroke="#00B4D8" stroke-width="2"/>
+            <path d="M16 24 L22 30 L32 18" fill="none" stroke="#00B4D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="verify-title">信息登记</h3>
+        <p class="verify-subtitle">请填写信息参与抽奖</p>
+      </div>
+
+      <div class="verify-form">
+        <div class="form-item">
+          <label class="form-label">
+            COS名称
+          </label>
+          <input type="text" class="form-input" id="cosName" placeholder="请输入你的COS角色名" maxlength="20">
+        </div>
+      </div>
+
+      <div class="verify-actions">
+        <button class="verify-btn-confirm" id="verifyConfirm" style="width:100%;">确认参与</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="prizeModal">
+    <div class="confetti-container" id="confettiContainer"></div>
+    <div class="prize-modal">
+      <div class="prize-modal-glow"></div>
+      <div class="modal-badge" id="modalBadge">三等奖</div>
+      <div class="modal-title-gold">恭 喜 中 奖</div>
+      <div class="modal-prize-img-large" id="modalPrizeImageWrap">
+        <div class="prize-sparkles">
+          <span class="sparkle s1"></span>
+          <span class="sparkle s2"></span>
+          <span class="sparkle s3"></span>
+          <span class="sparkle s4"></span>
+        </div>
+      </div>
+      <div class="modal-prize-name" id="prizeName">星琼奖励</div>
+      <div class="modal-hint-gold">凭此页面联系摄影师现场领取</div>
+      <div class="modal-actions">
+        <button class="modal-btn-gold" id="modalConfirm">
+          <span>知道了</span>
+        </button>
+        <button class="modal-btn-outline" id="modalGoGallery">
+          <span>去看照片</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 背景音乐播放器 -->
+  <div class="bgm-control" id="bgmControl" title="背景音乐">
+    <svg viewBox="0 0 48 48" class="bgm-icon">
+      <defs>
+        <linearGradient id="bgmGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00B4D8"/>
+          <stop offset="100%" stop-color="#0077B6"/>
+        </linearGradient>
+      </defs>
+      <circle cx="24" cy="24" r="22" fill="url(#bgmGrad)" opacity="0.95"/>
+      <path d="M20 18 L32 15 L32 33 L20 30 Z" fill="#fff" opacity="0.95"/>
+      <circle cx="21" cy="27" r="4" fill="#00B4D8"/>
+      <path d="M32 15 Q35 12 38 15 Q41 18 38 21 Q35 24 32 21" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.85" id="bgmWave1"/>
+      <path d="M34 21 Q37 18 40 21 Q43 24 40 27 Q37 30 34 27" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.7" id="bgmWave2"/>
+    </svg>
+  </div>
+  <audio id="bgmAudio" loop preload="auto">
+    <source src="audio/bgm.mp3" type="audio/mpeg">
+    <source src="audio/bgm.ogg" type="audio/ogg">
+    <source src="audio/bgm.m4a" type="audio/mp4">
+  </audio>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 公共返图墙 Lightbox -->
+  <div class="pw-lightbox" id="pwLightbox" aria-hidden="true">
+    <div class="pw-lightbox-mask" data-pw-close></div>
+    <button class="pw-lightbox-close" data-pw-close aria-label="关闭">&times;</button>
+    <div class="pw-lightbox-stage">
+      <img class="pw-lightbox-img" id="pwLightboxImg" alt="返图大图">
+      <div class="pw-lightbox-info" id="pwLightboxInfo">
+        <span class="pw-lb-badge" id="pwLbBadge">—</span>
+        <span class="pw-lb-name" id="pwLbPrize">—</span>
+        <span class="pw-lb-coser" id="pwLbCoser">—</span>
+        <span class="pw-lb-time" id="pwLbTime">—</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js?v=fix6"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>漫展抽奖网站 · 介绍文章（甲方编辑版）</title>
+<style>
+  body { font-family: "Microsoft YaHei", "SimSun", serif; max-width: 820px; margin: 30px auto; padding: 0 24px; color: #1a1a1a; line-height: 1.9; font-size: 16px; }
+  h1 { font-size: 26px; text-align: center; color: #0c8599; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #888; font-size: 14px; margin-bottom: 30px; border-bottom: 1px solid #e0e0e0; padding-bottom: 20px; }
+  h2 { font-size: 20px; color: #1098ad; border-left: 4px solid #22b8cf; padding-left: 12px; margin-top: 36px; }
+  h3 { font-size: 17px; color: #15aabf; margin-top: 24px; }
+  [contenteditable="true"] { background: #f0f9ff; padding: 2px 6px; border-radius: 3px; border-bottom: 1px dashed #7dd3fc; outline: none; cursor: text; }
+  [contenteditable="true"]:focus { background: #e0f2fe; }
+  p { text-indent: 2em; margin: 12px 0; }
+  .no-indent { text-indent: 0; }
+  ul, ol { padding-left: 2em; }
+  li { margin: 6px 0; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 13px; font-weight: bold; margin: 0 2px; }
+  .tag-first { background: #fef3c7; color: #92400e; }
+  .tag-second { background: #ddd6fe; color: #5b21b6; }
+  .tag-thanks { background: #e5e7eb; color: #374151; }
+  .quote { background: #f8fafc; border-left: 3px solid #94a3b8; padding: 12px 20px; margin: 16px 0; color: #475569; }
+  .msg-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 14px 20px; margin: 14px 0; }
+  .msg-user { background: #ede9fe; }
+  .msg-reply { background: #fdf2f8; border-color: #fbcfe8; }
+  .meta { color: #64748b; font-size: 13px; }
+  .note { background: #fef9c3; padding: 12px 20px; border-radius: 6px; margin: 16px 0; border-left: 4px solid #facc15; }
+  .print-btn { position: fixed; top: 20px; right: 20px; padding: 8px 16px; background: #0c8599; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+  .print-btn:hover { background: #0e7490; }
+  @media print { .print-btn { display: none; } [contenteditable="true"] { background: none; border: none; } }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">打印 / 导出PDF</button>
+
+<h1>漫展抽奖 · 照片分享网站</h1>
+<p class="subtitle">网站介绍与全部消息汇总 | 导出时间：2026年10月1日</p>
+
+<h2>一、网站概述</h2>
+
+<p>本网站是为漫展活动设计的<span contenteditable="true">抽奖与照片分享平台</span>，主要面向参与漫展的COSER和摄影爱好者。网站前台地址为 <span contenteditable="true">http://gaozhongsheng123.xyz</span>，后台管理地址为 <span contenteditable="true">http://gaozhongsheng123.xyz/admin</span>（账号 <span contenteditable="true">admin</span> / 密码 <span contenteditable="true">Admin@2026</span>）。</p>
+
+<p>网站的核心功能包括：用户登记身份后参与抽奖、上传返图、与摄影师留言互动，以及在"大家的照片"公共墙展示已公开的照片。</p>
+
+<h2>二、网站结构与导航</h2>
+
+<p>网站导航栏包含三个入口：</p>
+<ul>
+  <li><strong>抽奖</strong> — 用户登记身份后点击抽奖，系统自动判定中奖结果</li>
+  <li><strong>我的照片</strong> — 用户查看自己的返图、上传照片、给摄影师留言</li>
+  <li><strong>大家的照片</strong> — 公共墙，展示所有用户同意公开的照片</li>
+</ul>
+
+<h2>三、奖品设置</h2>
+
+<p>本次活动采用<span contenteditable="true">50人固定奖池</span>机制，所有奖品由服务器端随机抽取，确保公平公正，前端无法篡改概率。具体奖品配置如下：</p>
+
+<ul>
+  <li><span class="tag tag-first">一等奖</span> <span contenteditable="true">20元现金红包</span> — 共 1 份，已抽 0 份，剩余 1 份</li>
+  <li><span class="tag tag-second">二等奖</span> <span contenteditable="true">霞蝶手办</span> — 共 10 份，已抽 1 份，剩余 9 份</li>
+  <li><span class="tag tag-thanks">谢谢参与</span> — 共 39 份，已抽 2 份，剩余 37 份</li>
+</ul>
+
+<p class="meta no-indent">奖池创建时间：2026-10-01 11:04 | 总名额 50 个，已抽 3 个，剩余 47 个</p>
+
+<h2>四、抽奖流程</h2>
+
+<p>用户首次访问网站时，系统会弹出身份登记框，要求填写 <span contenteditable="true">COS名称</span> 和 <span contenteditable="true">微信号</span>。确认参与后，系统在服务端从奖池中随机抽取一个结果，并通过抽奖动画展示中奖信息。中奖后页面自动跳转至"我的照片"页。</p>
+
+<div class="quote">
+  说明：每个 COS 名称 + 微信号组合只能参与一次抽奖，重复提交会被拒绝。管理员账号可无限次抽奖用于测试。
+</div>
+
+<h2>五、照片上传与展示</h2>
+
+<h3>5.1 上传照片</h3>
+<p>用户在"我的照片"页可以上传自己的照片。点击白色框选择图片后，确认上传即可，系统会自动将照片放入空位（最多 9 张）。支持的图片格式包括 JPG、PNG、GIF、WebP 以及 iPhone 默认的 HEIC 格式，单张图片大小限制为 <span contenteditable="true">25MB</span>。</p>
+
+<h3>5.2 同意公开</h3>
+<p>用户上传的照片默认仅自己可见。如需展示在"大家的照片"公共墙，需用户本人点击照片下方的"同意公开"按钮。<strong>管理员无权代替用户操作公开或撤回已公开的照片</strong>。</p>
+
+<h3>5.3 当前返图情况</h3>
+<p>截至目前，共有 <strong>2 位用户</strong>上传了返图，总计 <strong>7 张照片</strong>，其中 <strong>0 张</strong>已同意公开。</p>
+
+<h2>六、留言板功能</h2>
+
+<p>在"我的照片"页设有<span contenteditable="true">COS给摄影师的反馈</span>留言板。用户无需等待照片上传即可留言，向摄影师提出修图需求或其他想法。留言字数限制为 500 字。摄影师可在后台查看留言并回复。</p>
+
+<p class="no-indent meta">留言板提示语示例：</p>
+<div class="quote no-indent">
+  <span contenteditable="true">「日系胶片感，脸磨白一点，背景加樱花🌸」</span><br>
+  <span contenteditable="true">「修成赛博朋克霓虹风」</span>
+</div>
+
+<h3>6.1 当前留言</h3>
+
+<div class="msg-box msg-user">
+  <p class="no-indent"><strong>用户留言</strong> | COS：<span contenteditable="true">1</span> | 时间：2026-10-01 14:55</p>
+  <p class="no-indent"><span contenteditable="true">你好呀</span></p>
+</div>
+
+<div class="msg-box msg-reply">
+  <p class="no-indent"><strong>摄影师回复</strong> | <span class="meta">暂无回复</span></p>
+</div>
+
+<h2>七、联系方式与扩列</h2>
+
+<p>在"我的照片"页底部展示摄影师的联系方式，方便用户联系和领取奖品：</p>
+
+<ul>
+  <li><strong>QQ号</strong>：<span contenteditable="true">123456789</span></li>
+  <li><strong>微信号</strong>：<span contenteditable="true">photographer_xiaoming</span></li>
+  <li><strong>QQ二维码</strong>：<span class="meta">未上传</span></li>
+  <li><strong>微信二维码</strong>：<span class="meta">未上传</span></li>
+</ul>
+
+<h2>八、用户参与记录</h2>
+
+<p>截至导出时间，共有 <strong>3 位用户</strong>参与了抽奖活动：</p>
+
+<ol>
+  <li>
+    <strong>COS：<span contenteditable="true">1</span></strong>（微信号：<span contenteditable="true">2</span>）<br>
+    中奖结果：<span class="tag tag-thanks">谢谢参与</span> | 参与时间：2026-10-01 11:35 | 上传照片：0 张 | 留言：0 条
+  </li>
+  <li>
+    <strong>COS：<span contenteditable="true">1</span></strong>（微信号：<span contenteditable="true">3</span>）<br>
+    中奖结果：<span class="tag tag-second">二等奖 · 霞蝶手办</span> | 参与时间：2026-10-01 14:54 | 上传照片：2 张 | 留言：1 条
+  </li>
+  <li>
+    <strong>COS：<span contenteditable="true">图片测试D</span></strong>（微信号：<span contenteditable="true">testwx004</span>）<br>
+    中奖结果：<span class="tag tag-thanks">谢谢参与</span> | 参与时间：2026-10-01 20:31 | 上传照片：5 张 | 留言：0 条
+  </li>
+</ol>
+
+<h2>九、温馨提示文案</h2>
+
+<p>在"我的照片"页展示以下温馨提示，引导用户正确使用网站：</p>
+
+<div class="quote">
+  <p class="no-indent"><strong>🌸 温馨小提示</strong></p>
+  <p class="no-indent">📸 <span contenteditable="true">这里是大家分享照片、交流心得的地方，欢迎上传你自己拍的或找别人拍的照片~</span></p>
+  <p class="no-indent">🌟 <span contenteditable="true">摄影师拍的原图会另外整理发布，这里主要是大家自己拍的或收藏的照片交流分享</span></p>
+  <p class="no-indent">💕 <span contenteditable="true">摄影师偶尔也会帮忙修图，但后期水平有限，请大家不要有太大期待~</span></p>
+  <p class="no-indent">⏱️ <span contenteditable="true">如果有修图需求，可以在下方留言告诉摄影师，一般1-3天内会看看~</span></p>
+  <p class="no-indent">💬 <span contenteditable="true">留言时尽量具体描述想要的感觉（比如"日系""港风""磨白"），更容易被理解</span></p>
+  <p class="no-indent">✨ <span contenteditable="true">上传的照片越清晰越好，大家看起来也更舒服~</span></p>
+  <p class="no-indent">🌈 <span contenteditable="true">同意公开后，照片会出现在「大家的照片」里，一起欣赏美好的瞬间吧！</span></p>
+  <p class="no-indent">🙏 <span contenteditable="true">感谢大家的理解与支持，祝拍照愉快！</span></p>
+</div>
+
+<h2>十、技术说明</h2>
+
+<p>网站后端采用 Python Flask 框架，配合 Gunicorn 部署在阿里云香港服务器（2核4G）上，由 Nginx 反向代理对外提供服务。数据以 JSON 文件形式存储，图片存储在服务器本地磁盘。抽奖采用 50 人固定奖池机制，中奖结果在服务端随机生成，杜绝前端作弊。</p>
+
+<div class="note">
+  <strong>编辑说明：</strong>本文档中所有浅蓝色高亮的文本均可直接点击编辑。修改完成后，请将需要调整的内容标注出来反馈给开发人员，由开发人员统一修改并部署到网站。点击右上角"打印/导出PDF"可将文档保存为 PDF 格式。
+</div>
+
+</body>
+</html>

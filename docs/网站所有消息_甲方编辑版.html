@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>漫展抽奖网站 · 全部消息（甲方编辑版）</title>
+<style>
+  body { font-family: "Microsoft YaHei", sans-serif; max-width: 900px; margin: 20px auto; padding: 20px; color: #333; line-height: 1.7; }
+  h1 { color: #0c8599; border-bottom: 3px solid #22b8cf; padding-bottom: 10px; }
+  h2 { color: #1098ad; border-left: 4px solid #22b8cf; padding-left: 10px; margin-top: 30px; }
+  h3 { color: #15aabf; }
+  [contenteditable="true"] { background: #f0f9ff; padding: 4px 8px; border-radius: 4px; border: 1px dashed #7dd3fc; outline: none; }
+  [contenteditable="true"]:focus { background: #e0f2fe; border-style: solid; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+  th, td { border: 1px solid #bae6fd; padding: 8px 12px; text-align: left; font-size: 14px; }
+  th { background: #e0f2fe; color: #0c4a6e; }
+  tr:nth-child(even) { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; }
+  .tag-user { background: #ddd6fe; color: #5b21b6; }
+  .tag-reply { background: #fbcfe8; color: #9d174d; }
+  .note { background: #fef9c3; padding: 10px 15px; border-radius: 6px; border-left: 4px solid #facc15; margin: 10px 0; }
+  .empty { color: #999; font-style: italic; }
+  .meta { color: #64748b; font-size: 13px; }
+  .print-btn { position: fixed; top: 20px; right: 20px; padding: 8px 16px; background: #0c8599; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+  .print-btn:hover { background: #0e7490; }
+  @media print { .print-btn { display: none; } [contenteditable="true"] { background: none; border: none; } }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">打印 / 导出PDF</button>
+
+<h1>漫展抽奖 · 照片分享网站 — 全部消息汇总</h1>
+<p class="meta">导出时间：2026-10-01 | 网站地址：http://gaozhongsheng123.xyz | 后台：http://gaozhongsheng123.xyz/admin</p>
+<div class="note">
+  <strong>说明：</strong>本文档汇总网站上所有可编辑的文案、配置、奖品、留言和用户记录。黄色底色的文本框可直接点击编辑（在浏览器中），编辑后可点击右上角"打印/导出PDF"保存。如需修改网站实际内容，请将修改后的内容反馈给开发人员。
+</div>
+
+<!-- ==================== 1. 网站基本信息 ==================== -->
+<h2>一、网站基本信息</h2>
+<table>
+  <tr><th width="25%">项目</th><th>内容</th></tr>
+  <tr><td>网站标题</td><td contenteditable="true">漫展抽奖 · 照片分享</td></tr>
+  <tr><td>前台地址</td><td contenteditable="true">http://gaozhongsheng123.xyz</td></tr>
+  <tr><td>后台地址</td><td contenteditable="true">http://gaozhongsheng123.xyz/admin</td></tr>
+  <tr><td>后台账号</td><td contenteditable="true">admin</td></tr>
+  <tr><td>后台密码</td><td contenteditable="true">Admin@2026</td></tr>
+  <tr><td>服务器IP</td><td contenteditable="true">47.76.117.188（阿里云香港 2核4G）</td></tr>
+  <tr><td>SSL证书</td><td contenteditable="true">Let's Encrypt，有效期至 2026-12-30（HTTPS需安全组放行443）</td></tr>
+</table>
+
+<!-- ==================== 2. 联系方式配置 ==================== -->
+<h2>二、联系方式与扩列</h2>
+<table>
+  <tr><th width="25%">项目</th><th>当前值</th><th>说明</th></tr>
+  <tr><td>QQ号</td><td contenteditable="true">123456789</td><td>返图页下方展示</td></tr>
+  <tr><td>微信号</td><td contenteditable="true">photographer_xiaoming</td><td>返图页下方展示</td></tr>
+  <tr><td>QQ二维码图片</td><td contenteditable="true">未上传</td><td>后台可上传</td></tr>
+  <tr><td>微信二维码图片</td><td contenteditable="true">未上传</td><td>后台可上传</td></tr>
+</table>
+
+<!-- ==================== 3. 奖品配置 ==================== -->
+<h2>三、奖品配置（50人奖池）</h2>
+<table>
+  <tr><th width="25%">奖项</th><th>奖品名称</th><th>数量</th><th>已抽</th><th>剩余</th></tr>
+  <tr><td>一等奖</td><td contenteditable="true">20元现金红包</td><td>1</td><td>0</td><td>1</td></tr>
+  <tr><td>二等奖</td><td contenteditable="true">霞蝶手办</td><td>10</td><td>1</td><td>9</td></tr>
+  <tr><td>谢谢参与</td><td contenteditable="true">谢谢参与</td><td>39</td><td>2</td><td>37</td></tr>
+</table>
+<p class="meta">奖池共 50 个名额，抽完即止。中奖结果由服务器端随机决定，前端无法篡改。</p>
+
+<!-- ==================== 4. 网站文案 ==================== -->
+<h2>四、网站文案</h2>
+
+<h3>4.1 导航栏</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>导航按钮1</td><td contenteditable="true">抽奖</td></tr>
+  <tr><td>导航按钮2</td><td contenteditable="true">我的照片</td></tr>
+  <tr><td>导航按钮3</td><td contenteditable="true">大家的照片</td></tr>
+</table>
+
+<h3>4.2 抽奖页</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>大标题</td><td contenteditable="true">抽 奖</td></tr>
+  <tr><td>规则1</td><td contenteditable="true">· 一等奖：20元现金红包（共1份，抽完即止）</td></tr>
+  <tr><td>规则2</td><td contenteditable="true">· 二等奖：霞蝶手办（共10份，抽完即止）</td></tr>
+  <tr><td>规则3</td><td contenteditable="true">· 凭中奖页面联系摄影师领取</td></tr>
+  <tr><td>奖品标签</td><td contenteditable="true">一等奖 限1份</td></tr>
+  <tr><td>抽奖按钮</td><td contenteditable="true">开始抽奖</td></tr>
+</table>
+
+<h3>4.3 身份登记弹窗</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>标题</td><td contenteditable="true">请先完成登记验证</td></tr>
+  <tr><td>说明</td><td contenteditable="true">填写你的COS名称和微信号，便于联系和发放奖品</td></tr>
+  <tr><td>输入框1标签</td><td contenteditable="true">COS名称</td></tr>
+  <tr><td>输入框2标签</td><td contenteditable="true">微信号</td></tr>
+  <tr><td>确认按钮</td><td contenteditable="true">确认参与</td></tr>
+</table>
+
+<h3>4.4 我的照片页</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>页面标题</td><td contenteditable="true">全 部</td></tr>
+  <tr><td>副标题</td><td contenteditable="true">上传你的照片，和大家一起分享交流</td></tr>
+  <tr><td>等待提示</td><td contenteditable="true">稍等一下~</td></tr>
+  <tr><td>等待副标题</td><td contenteditable="true">摄影师正在为你修图中...</td></tr>
+  <tr><td>上传区标题</td><td contenteditable="true">上传你的照片</td></tr>
+  <tr><td>上传区说明</td><td contenteditable="true">点击白色框选择图片 → 确认上传即可（无需选位置，自动放到空位）</td></tr>
+  <tr><td>选择图片按钮</td><td contenteditable="true">选择图片</td></tr>
+  <tr><td>选择图片说明</td><td contenteditable="true">点白框 → 选要上传的图 (JPG/PNG/WebP)</td></tr>
+  <tr><td>未选文件</td><td contenteditable="true">未选</td></tr>
+  <tr><td>确认上传按钮</td><td contenteditable="true">⬆ 确认上传</td></tr>
+  <tr><td>上传提示</td><td contenteditable="true">请先点白色框选择要上传的图片</td></tr>
+  <tr><td>移除按钮</td><td contenteditable="true">× 移除这张</td></tr>
+  <tr><td>未抽奖提示</td><td contenteditable="true">请先完成抽奖和信息登记，才能上传你的照片哦~</td></tr>
+  <tr><td>去抽奖按钮</td><td contenteditable="true">去抽奖 →</td></tr>
+  <tr><td>你的照片标题</td><td contenteditable="true">📷 你的照片</td></tr>
+  <tr><td>你的照片说明</td><td contenteditable="true">X 张 · 点击单张照片下方的按钮，同意公开即可出现在「大家的照片」</td></tr>
+</table>
+
+<h3>4.5 温馨提示卡片</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>标题</td><td contenteditable="true">🌸 温馨小提示</td></tr>
+  <tr><td>提示1</td><td contenteditable="true">📸 这里是大家分享照片、交流心得的地方，欢迎上传你自己拍的或找别人拍的照片~</td></tr>
+  <tr><td>提示2</td><td contenteditable="true">🌟 摄影师拍的原图会另外整理发布，这里主要是大家自己拍的或收藏的照片交流分享</td></tr>
+  <tr><td>提示3</td><td contenteditable="true">💕 摄影师偶尔也会帮忙修图，但后期水平有限，请大家不要有太大期待~</td></tr>
+  <tr><td>提示4</td><td contenteditable="true">⏱️ 如果有修图需求，可以在下方留言告诉摄影师，一般1-3天内会看看~</td></tr>
+  <tr><td>提示5</td><td contenteditable="true">💬 留言时尽量具体描述想要的感觉（比如"日系""港风""磨白"），更容易被理解</td></tr>
+  <tr><td>提示6</td><td contenteditable="true">✨ 上传的照片越清晰越好，大家看起来也更舒服~</td></tr>
+  <tr><td>提示7</td><td contenteditable="true">🌈 同意公开后，照片会出现在「大家的照片」里，一起欣赏美好的瞬间吧！</td></tr>
+  <tr><td>提示8</td><td contenteditable="true">🙏 感谢大家的理解与支持，祝拍照愉快！</td></tr>
+</table>
+
+<h3>4.6 留言板</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>标题</td><td contenteditable="true">💬 COS给摄影师的反馈</td></tr>
+  <tr><td>提示</td><td contenteditable="true">🎨 有修图需求可以告诉摄影师，<b>填完就能发</b>，不用等照片上传也能先留言哦～</td></tr>
+  <tr><td>示例1</td><td contenteditable="true">「日系胶片感，脸磨白一点，背景加樱花🌸」</td></tr>
+  <tr><td>示例2</td><td contenteditable="true">「修成赛博朋克霓虹风」</td></tr>
+  <tr><td>输入框占位</td><td contenteditable="true">写下你的修图需求或想说的话...（最多500字）</td></tr>
+  <tr><td>发送按钮</td><td contenteditable="true">发送</td></tr>
+  <tr><td>空状态</td><td contenteditable="true">还没有留言哦～</td></tr>
+</table>
+
+<h3>4.7 大家的照片页</h3>
+<table>
+  <tr><th width="25%">位置</th><th>文案</th></tr>
+  <tr><td>页面标题</td><td contenteditable="true">大家的照片</td></tr>
+  <tr><td>统计</td><td contenteditable="true">总照片 X 张 · 最新上传 YYYY-MM-DD</td></tr>
+  <tr><td>空状态</td><td contenteditable="true">还没有公开的照片，快来成为第一个分享的人吧！</td></tr>
+</table>
+
+<!-- ==================== 5. 用户留言 ==================== -->
+<h2>五、用户留言</h2>
+<p class="meta">以下是网站上所有用户的留言及摄影师回复。</p>
+
+<!-- 留言1 -->
+<h3>留言 #1</h3>
+<table>
+  <tr><th width="25%">项目</th><th>内容</th></tr>
+  <tr><td>COS名称</td><td contenteditable="true">1</td></tr>
+  <tr><td>微信号</td><td contenteditable="true">3</td></tr>
+  <tr><td>中奖结果</td><td contenteditable="true">霞蝶手办（二等奖）</td></tr>
+  <tr><td>留言时间</td><td>2026-10-01 14:55:16</td></tr>
+  <tr><td>用户留言</td><td contenteditable="true">你好呀</td></tr>
+  <tr><td>摄影师回复</td><td contenteditable="true" class="empty">（暂无回复）</td></tr>
+  <tr><td>是否已读</td><td>✅ 已读</td></tr>
+</table>
+
+<!-- ==================== 6. 用户参与记录 ==================== -->
+<h2>六、用户参与记录</h2>
+<p class="meta">截至导出时间，共 3 条参与记录。</p>
+
+<table>
+  <tr>
+    <th>#</th><th>COS名称</th><th>微信号</th><th>中奖结果</th>
+    <th>参与时间</th><th>照片数</th><th>留言数</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td contenteditable="true">1</td>
+    <td contenteditable="true">2</td>
+    <td contenteditable="true">谢谢参与</td>
+    <td>2026-10-01 11:35:04</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td contenteditable="true">1</td>
+    <td contenteditable="true">3</td>
+    <td contenteditable="true">霞蝶手办（二等奖）</td>
+    <td>2026-10-01 14:54:59</td>
+    <td>2</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td contenteditable="true">图片测试D</td>
+    <td contenteditable="true">testwx004</td>
+    <td contenteditable="true">谢谢参与</td>
+    <td>2026-10-01 20:31:07</td>
+    <td>5</td>
+    <td>0</td>
+  </tr>
+</table>
+
+<!-- ==================== 7. 返图详情 ==================== -->
+<h2>七、返图详情</h2>
+
+<h3>用户：1（微信号：3）— 二等奖 霞蝶手办</h3>
+<table>
+  <tr><th>位置</th><th>上传者</th><th>上传时间</th><th>是否公开</th><th>图片URL</th></tr>
+  <tr>
+    <td>1</td><td>摄影师</td><td>2026-10-01 14:56:53</td>
+    <td>❌ 未公开</td>
+    <td>/data/photos/1790837699968_1_1790837813877_71b774e16837.jpg</td>
+  </tr>
+  <tr>
+    <td>2</td><td>用户</td><td>2026-10-01 14:57:35</td>
+    <td>❌ 未公开</td>
+    <td>/data/photos/user_1790837699968_2_1790837855270.jpg</td>
+  </tr>
+</table>
+
+<h3>用户：图片测试D（微信号：testwx004）— 谢谢参与</h3>
+<table>
+  <tr><th>位置</th><th>上传者</th><th>上传时间</th><th>是否公开</th><th>图片URL</th></tr>
+  <tr><td>1</td><td>用户</td><td>2026-10-01 20:39:08</td><td>❌ 未公开</td><td>/data/photos/user_1790857868252_1_1790858348753.jpg</td></tr>
+  <tr><td>2</td><td>用户</td><td>2026-10-01 20:44:27</td><td>❌ 未公开</td><td>/data/photos/user_1790857868252_2_1790858667399.jpg</td></tr>
+  <tr><td>3</td><td>用户</td><td>2026-10-01 20:46:29</td><td>❌ 未公开</td><td>/data/photos/user_1790857868252_3_1790858789281.jpg</td></tr>
+  <tr><td>4</td><td>用户</td><td>2026-10-01 20:46:50</td><td>❌ 未公开</td><td>/data/photos/user_1790857868252_4_1790858810157.jpg</td></tr>
+  <tr><td>5</td><td>用户</td><td>2026-10-01 20:47:08</td><td>❌ 未公开</td><td>/data/photos/user_1790857868252_5_1790858828279.jpg</td></tr>
+</table>
+
+<!-- ==================== 8. 奖池状态 ==================== -->
+<h2>八、奖池状态</h2>
+<table>
+  <tr><th width="25%">项目</th><th>值</th></tr>
+  <tr><td>奖池总数</td><td>50</td></tr>
+  <tr><td>已抽取</td><td>3</td></tr>
+  <tr><td>剩余</td><td>47</td></tr>
+  <tr><td>一等奖剩余</td><td>1</td></tr>
+  <tr><td>二等奖剩余</td><td>9</td></tr>
+  <tr><td>创建时间</td><td>2026-10-01 11:04:09</td></tr>
+  <tr><td>最后抽取</td><td>2026-10-01 20:31:07</td></tr>
+</table>
+
+<!-- ==================== 9. 技术说明 ==================== -->
+<h2>九、技术说明（供参考）</h2>
+<table>
+  <tr><th width="25%">项目</th><th>说明</th></tr>
+  <tr><td>后端</td><td>Python Flask + Gunicorn</td></tr>
+  <tr><td>服务器</td><td>阿里云香港 2核4G，Alibaba Cloud Linux 3</td></tr>
+  <tr><td>进程管理</td><td>systemd lottery.service</td></tr>
+  <tr><td>反向代理</td><td>Nginx（80→Gunicorn 8000）</td></tr>
+  <tr><td>数据存储</td><td>JSON 文件（records.json / lottery_pool.json / config.json）</td></tr>
+  <tr><td>图片存储</td><td>/opt/lottery/data/photos/（原图）+ _thumb/（缩略图）</td></tr>
+  <tr><td>图片格式</td><td>JPG / PNG / GIF / WebP / HEIC（iPhone）</td></tr>
+  <tr><td>图片大小限制</td><td>25MB</td></tr>
+  <tr><td>抽奖机制</td><td>50人固定奖池，服务端随机出奖（防作弊）</td></tr>
+  <tr><td>留言功能</td><td>COS给摄影师的修图反馈，支持摄影师后台回复</td></tr>
+</table>
+
+<div class="note">
+  <strong>编辑完成后：</strong>请将需要修改的内容（如文案、联系方式、奖品等）标注出来反馈给开发人员，由开发人员统一修改并部署。
+</div>
+
+</body>
+</html>
