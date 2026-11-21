@@ -19,12 +19,6 @@ ADMIN_PASSWORD = os.environ.get('LOTTERY_ADMIN_PASSWORD', '')
 if not ADMIN_PASSWORD:
     raise RuntimeError('请设置环境变量 LOTTERY_ADMIN_PASSWORD')
 
-# 专属前台管理员（漫展现场工作人员使用，COS名+微信号，可无限次抽奖）
-# 用这套信息在前台登记后，不受IP限制、不限抽奖次数、不写入普通参与记录
-# 可随时修改为实际使用的COS名+微信号组合
-SUPER_COS_NAME = '管理员'
-SUPER_WECHAT_ID = 'admin2026'
-
 # 频率限制配置
 RATE_LIMIT_GENERAL = 120   # 普通接口：每分钟最多120次
 RATE_LIMIT_LOTTERY = 30    # 抽奖接口：每分钟最多30次
@@ -330,34 +324,11 @@ def get_client_ip():
     return request.remote_addr or 'unknown'
 
 
-def is_super_user(cos_name, wechat_id):
-    """判断是否为专属前台管理员（可无限次抽奖）"""
-    if not cos_name or not wechat_id:
-        return False
-    return (
-        cos_name.strip() == SUPER_COS_NAME
-        and wechat_id.strip() == SUPER_WECHAT_ID
-    )
-
-
 def rate_limit(max_per_minute, endpoint_key=None):
-    """频率限制装饰器（专属前台管理员豁免）"""
+    """按客户端IP执行频率限制；身份字段由客户端提交，不可用于权限豁免。"""
     def decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            # 尝试从请求体判断是否是专属前台管理员，是则跳过频率限制
-            super_bypass = False
-            try:
-                if request.method == 'POST' and request.is_json:
-                    body = request.get_json(silent=True) or {}
-                    if is_super_user(body.get('cosName'), body.get('wechatId')):
-                        super_bypass = True
-            except Exception:
-                pass
-
-            if super_bypass:
-                return f(*args, **kwargs)
-
             ip = get_client_ip()
             key = endpoint_key or request.endpoint
             now = time.time()
@@ -378,9 +349,7 @@ def rate_limit(max_per_minute, endpoint_key=None):
 
 
 def check_daily_lottery_limit(cos_name=None, wechat_id=None):
-    """检查同一IP每日抽奖次数限制（专属前台管理员豁免）"""
-    if is_super_user(cos_name, wechat_id):
-        return True, None
+    """检查同一IP每日抽奖次数限制；不信任客户端身份字段。"""
     ip = get_client_ip()
     today = datetime.now().strftime('%Y-%m-%d')
     if ip not in daily_lottery_store:
