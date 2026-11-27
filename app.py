@@ -12,6 +12,27 @@ from functools import wraps
 from flask import Flask, request, jsonify, send_from_directory, render_template_string, session, redirect, url_for, abort
 from werkzeug.utils import secure_filename
 
+# ============ v2.0 隐藏彩蛋（需在管理员密码校验前处理） ============
+SOLCAT_ASCII_ART = r"""
+  ____             _   _       _   _
+ / ___|  ___  _ __| |_(_) __ _| |_| |__
+ \___ \ / _ \| '__| __| |/ _` | __| '_ \
+  ___) | (_) | |  | |_| | (_| | |_| | |
+ |____/ \___/|_|   \__|_|\__,_|\__|_| |_|
+"""
+
+
+def _print_easter_and_exit():
+    print(SOLCAT_ASCII_ART)
+    print('  SOLCAT EASTER EGG PROTOCOL v2.0 — 你找到了隐藏入口')
+    print('  提示：↑↑↓↓←→←→BA · 连点标题 5 次 · 输入 solcat · Ctrl+Shift+T')
+    print('  站点彩蛋：访问 /solcat 也能找到我 ;)')
+    raise SystemExit(0)
+
+
+if '--easter' in __import__('sys').argv:
+    _print_easter_and_exit()
+
 # ============ 安全配置 ============
 # 管理员账号从环境变量读取，部署前必须设置 LOTTERY_ADMIN_PASSWORD
 ADMIN_USERNAME = os.environ.get('LOTTERY_ADMIN_USER', 'admin')
@@ -20,15 +41,28 @@ if not ADMIN_PASSWORD:
     raise RuntimeError('请设置环境变量 LOTTERY_ADMIN_PASSWORD')
 
 # 专属前台管理员（漫展现场工作人员使用，COS名+微信号，可无限次抽奖）
-# 用这套信息在前台登记后，不受IP限制、不限抽奖次数、不写入普通参与记录
-# 可随时修改为实际使用的COS名+微信号组合
-SUPER_COS_NAME = '管理员'
-SUPER_WECHAT_ID = 'admin2026'
+# v2.0 安全加固：改为从环境变量读取，避免仓库里硬编码特权凭据。
+# 未设置时沿用兼容默认值，但启动时会打印明显警告，提醒部署者尽快覆盖。
+SUPER_COS_NAME = os.environ.get('LOTTERY_SUPER_COS_NAME', '管理员')
+SUPER_WECHAT_ID = os.environ.get('LOTTERY_SUPER_WECHAT_ID', 'admin2026')
+_SUPER_USING_DEFAULTS = (
+    SUPER_COS_NAME == '管理员' and SUPER_WECHAT_ID == 'admin2026'
+)
+if _SUPER_USING_DEFAULTS:
+    print('[安全警告] 专属管理员仍使用内置默认凭据（管理员/admin2026），'
+          '请设置 LOTTERY_SUPER_COS_NAME 与 LOTTERY_SUPER_WECHAT_ID 环境变量。')
 
-# 频率限制配置
-RATE_LIMIT_GENERAL = 120   # 普通接口：每分钟最多120次
-RATE_LIMIT_LOTTERY = 30    # 抽奖接口：每分钟最多30次
-RATE_LIMIT_DAILY_PER_IP = 999  # 同一IP每天抽奖次数大幅放宽
+# 频率限制配置（v2.0：支持环境变量覆盖，便于不同规模漫展现场调整）
+def _env_int(name, default):
+    try:
+        return int(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
+RATE_LIMIT_GENERAL = _env_int('LOTTERY_RATE_LIMIT_GENERAL', 120)   # 普通接口：每分钟最多120次
+RATE_LIMIT_LOTTERY = _env_int('LOTTERY_RATE_LIMIT_LOTTERY', 30)    # 抽奖接口：每分钟最多30次
+RATE_LIMIT_DAILY_PER_IP = _env_int('LOTTERY_RATE_LIMIT_DAILY', 999)  # 同一IP每天抽奖次数大幅放宽
 
 # 上传安全配置
 ALLOWED_MIME_TYPES = {'image/jpeg', 'image/png', 'image/gif', 'image/webp'}
@@ -41,8 +75,21 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 app.config['MAX_CONTENT_LENGTH'] = MAX_UPLOAD_SIZE
-app.secret_key = secrets.token_hex(32)  # 每次启动随机生成Session密钥
+# v2.0 配置优化：支持通过环境变量固定 Session 密钥，避免每次重启导致管理员被登出。
+# 未设置时仍使用随机密钥（更安全，但重启后需重新登录）。
+app.secret_key = os.environ.get('LOTTERY_SECRET_KEY') or secrets.token_hex(32)
 app.permanent_session_lifetime = timedelta(hours=8)  # 管理员登录8小时过期
+
+# v2.0 安全加固：统一补充安全响应头
+@app.after_request
+def _security_headers(response):
+    response.headers.setdefault('X-Content-Type-Options', 'nosniff')
+    response.headers.setdefault('X-Frame-Options', 'SAMEORIGIN')
+    response.headers.setdefault('Referrer-Policy', 'strict-origin-when-cross-origin')
+    response.headers.setdefault('Permissions-Policy', 'geolocation=(), microphone=(), camera=()')
+    if request.path.startswith('/api/') or request.path.startswith('/admin'):
+        response.headers.setdefault('Cache-Control', 'no-store')
+    return response
 
 DATA_FILE = os.path.join(BASE_DIR, 'data', 'records.json')
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'data', 'photos')
@@ -611,6 +658,19 @@ def safe_rewrite_image(src_stream, ext):
 @app.route('/')
 def index():
     return send_from_directory('.', 'index.html')
+
+
+# ============ v2.0 隐藏彩蛋 ============
+@app.route('/solcat')
+def solcat_easter_egg():
+    """隐藏彩蛋端点：只读，不触碰任何数据，返回 SOLCAT ASCII 署名"""
+    return jsonify({
+        'success': True,
+        'protocol': 'SOLCAT EASTER EGG PROTOCOL v2.0',
+        'art': SOLCAT_ASCII_ART,
+        'hint': '↑↑↓↓←→←→BA · 连点标题 5 次 · 输入 solcat · Ctrl+Shift+T',
+        'note': '你找到了隐藏入口。祝你抽奖手气好运。',
+    })
 
 
 # 允许访问的白名单静态文件（防止目录穿越到data等敏感目录）
