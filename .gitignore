@@ -1,0 +1,33 @@
+# Runtime data / uploads
+data/photos/*
+data/qrcodes/*
+data/records.json
+data/config.json
+data/lottery_pool.json
+!data/.gitkeep
+!data/photos/.gitkeep
+!data/qrcodes/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtualenv
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
